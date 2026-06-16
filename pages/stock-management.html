@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Management - Smart Inventory Management</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="p-3">
+            <h5 class="text-white mb-4">
+                <i class="bi bi-box-seam me-2"></i>
+                Smart Inventory
+            </h5>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="dashboard.html">
+                        <i class="bi bi-house-door me-2"></i>Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="product-management.html">
+                        <i class="bi bi-box me-2"></i>Products
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="supplier-management.html">
+                        <i class="bi bi-truck me-2"></i>Suppliers
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="stock-management.html">
+                        <i class="bi bi-bar-chart me-2"></i>Stock
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="reports.html">
+                        <i class="bi bi-graph-up me-2"></i>Reports
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="settings.html">
+                        <i class="bi bi-gear me-2"></i>Settings
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="p-3 mt-auto">
+            <button class="btn btn-outline-light w-100" onclick="logout()">
+                <i class="bi bi-box-arrow-right me-2"></i>Logout
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Top Navbar -->
+        <nav class="navbar navbar-expand-lg top-navbar">
+            <div class="container-fluid">
+                <button class="btn btn-outline-secondary d-md-none me-2" onclick="toggleSidebar()">
+                    <i class="bi bi-list"></i>
+                </button>
+                <span class="navbar-brand mb-0 h1">Stock Management</span>
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-outline-secondary me-2" id="darkModeToggle" onclick="toggleDarkMode()">
+                        <i class="bi bi-moon"></i>
+                    </button>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle me-2"></i>
+                            <span class="user-name">Admin User</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="settings.html"><i class="bi bi-gear me-2"></i>Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Stock Management Content -->
+        <div class="container-fluid p-4">
+            <!-- Stock Overview Cards -->
+            <div class="row mb-4">
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card stat-card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1">
+                                    <h6 class="text-muted mb-1">Total Products</h6>
+                                    <h4 class="mb-0" id="totalProducts">0</h4>
+                                </div>
+                                <div class="bg-primary bg-opacity-10 p-3 rounded">
+                                    <i class="bi bi-box text-primary fs-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card stat-card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1">
+                                    <h6 class="text-muted mb-1">In Stock</h6>
+                                    <h4 class="mb-0 text-success" id="inStockProducts">0</h4>
+                                </div>
+                                <div class="bg-success bg-opacity-10 p-3 rounded">
+                                    <i class="bi bi-check-circle text-success fs-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card stat-card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1">
+                                    <h6 class="text-muted mb-1">Low Stock</h6>
+                                    <h4 class="mb-0 text-warning" id="lowStockProducts">0</h4>
+                                </div>
+                                <div class="bg-warning bg-opacity-10 p-3 rounded">
+                                    <i class="bi bi-exclamation-triangle text-warning fs-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card stat-card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1">
+                                    <h6 class="text-muted mb-1">Out of Stock</h6>
+                                    <h4 class="mb-0 text-danger" id="outOfStockProducts">0</h4>
+                                </div>
+                                <div class="bg-danger bg-opacity-10 p-3 rounded">
+                                    <i class="bi bi-x-circle text-danger fs-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters and Actions -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                <input type="text" class="form-control" id="searchInput" placeholder="Search products...">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="statusFilter">
+                                <option value="">All Status</option>
+                                <option value="In Stock">In Stock</option>
+                                <option value="Low Stock">Low Stock</option>
+                                <option value="Out of Stock">Out of Stock</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="categoryFilter">
+                                <option value="">All Categories</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-outline-secondary w-100" onclick="clearFilters()">
+                                <i class="bi bi-x-circle me-2"></i>Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stock Alerts -->
+            <div id="stockAlerts" class="mb-4">
+                <!-- Low stock alerts will be displayed here -->
+            </div>
+
+            <!-- Stock Table -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="stockTable">
+                            <thead class="table-light">
+                                <tr>
+                                    <th style="min-width: 240px;">Product</th>
+                                    <th>Category</th>
+                                    <th>Current Stock</th>
+                                    <th>Min. Stock</th>
+                                    <th>Status</th>
+                                    <th>Supplier</th>
+                                    <th>Last Updated</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="stockTableBody">
+                                <!-- Stock data will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <nav aria-label="Stock pagination" class="mt-4">
+                        <ul class="pagination justify-content-center" id="stockPagination">
+                            <!-- Pagination will be generated here -->
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Stock Modal -->
+    <div class="modal fade" id="updateStockModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Stock Level</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="updateStockForm" novalidate>
+                    <div class="modal-body">
+                        <input type="hidden" id="updateProductId">
+                        <div class="mb-3">
+                            <h6 id="productNameDisplay"></h6>
+                            <small class="text-muted">Current stock: <span id="currentStockDisplay"></span></small>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="stockAdjustment" class="form-label">Adjustment Type</label>
+                                <select class="form-select" id="stockAdjustment" required>
+                                    <option value="add">Add Stock</option>
+                                    <option value="set">Set Stock Level</option>
+                                    <option value="subtract">Reduce Stock</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="quantityChange" class="form-label">Quantity</label>
+                                <input type="number" class="form-control" id="quantityChange" min="0" required>
+                                <div class="invalid-feedback">Please enter a valid quantity.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="stockNotes" class="form-label">Notes (Optional)</label>
+                            <textarea class="form-control" id="stockNotes" rows="2" placeholder="Reason for stock change..."></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Update Stock</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stock History Modal -->
+    <div class="modal fade" id="stockHistoryModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Stock History</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6 id="historyProductName"></h6>
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                    <th>Quantity</th>
+                                    <th>Previous Stock</th>
+                                    <th>New Stock</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody id="stockHistoryBody">
+                                <!-- History will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../js/main.js?v=2"></script>
+    <script src="../js/data.js?v=4"></script>
+    <script src="../js/stock-management.js?v=4"></script>
+</body>
+</html>

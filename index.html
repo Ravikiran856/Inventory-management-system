@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Inventory Management - Login</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body class="login-bg">
+    <div class="container-fluid">
+        <div class="row justify-content-center align-items-center min-vh-100">
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow-lg border-0 rounded-4">
+                    <div class="card-body p-5">
+                        <div class="text-center mb-4">
+                            <i class="bi bi-box-seam display-4 text-primary mb-3"></i>
+                            <h2 class="fw-bold text-dark">Smart Inventory</h2>
+                            <p class="text-muted">Management System</p>
+                        </div>
+                        <form id="loginForm" novalidate>
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control form-control-lg" id="username" placeholder="Enter username" required>
+                                <div class="invalid-feedback">
+                                    Please enter a valid username.
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control form-control-lg" id="password" placeholder="Enter password" required>
+                                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please enter your password.
+                                </div>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="rememberMe">
+                                <label class="form-check-label" for="rememberMe">Remember me</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">Login</button>
+                            <div class="text-center">
+                                <a href="#" class="text-decoration-none">Forgot password?</a>
+                            </div>
+                            <div class="text-center mt-3">
+                                <span class="text-muted">Don't have an account? </span>
+                                <a href="#" class="text-decoration-none fw-bold" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="registerForm" novalidate>
+                    <div class="modal-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="registerFirstName" class="form-label">First Name *</label>
+                                <input type="text" class="form-control" id="registerFirstName" placeholder="Enter first name" required>
+                                <div class="invalid-feedback">Please enter your first name.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="registerLastName" class="form-label">Last Name *</label>
+                                <input type="text" class="form-control" id="registerLastName" placeholder="Enter last name" required>
+                                <div class="invalid-feedback">Please enter your last name.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="registerUsername" class="form-label">Username *</label>
+                                <input type="text" class="form-control" id="registerUsername" placeholder="Choose a username" required>
+                                <div class="invalid-feedback">Please choose a username.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="registerEmail" class="form-label">Email *</label>
+                                <input type="email" class="form-control" id="registerEmail" placeholder="Enter email address" required>
+                                <div class="invalid-feedback">Please enter a valid email address.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="registerPassword" class="form-label">Password *</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="registerPassword" placeholder="Create password" required>
+                                    <button class="btn btn-outline-secondary" type="button" id="toggleRegisterPassword">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="invalid-feedback">Password must be at least 6 characters.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="registerConfirmPassword" class="form-label">Confirm Password *</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="registerConfirmPassword" placeholder="Confirm password" required>
+                                    <button class="btn btn-outline-secondary" type="button" id="toggleRegisterConfirmPassword">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="invalid-feedback">Passwords do not match.</div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="registerTerms" required>
+                                    <label class="form-check-label" for="registerTerms">
+                                        I agree to the <a href="#" class="text-decoration-none">Terms of Service</a> and <a href="#" class="text-decoration-none">Privacy Policy</a>
+                                    </label>
+                                    <div class="invalid-feedback">You must agree to the terms and conditions.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Create Account</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/data.js?v=4"></script>
+    <script src="js/main.js?v=2"></script>
+    <script src="js/login.js?v=2"></script>
+</body>
+</html>
